@@ -13,6 +13,10 @@ const accountRouters = require('./routers/accountRouters');
 app.use(express.json());
 
 //use router
+app.get('/', (req, res) => {
+  res.send("Server is running.")
+})
+
 app.use('/user', accountRouters);
 
 //set up db

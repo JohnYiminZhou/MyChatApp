@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
-import './Login.css';
-
 const api = 'http://localhost:5000/';
 
-export default function Login() {
+export default function Register() {
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
 
@@ -12,7 +10,7 @@ export default function Login() {
         <div className="LoginOuterContainer">
             <h1>My Chat app</h1>
             <div>
-                <h1>Login</h1>
+                <h1>Create your account</h1>
                 <div>
                     <label><b>Username</b></label>
                     <input

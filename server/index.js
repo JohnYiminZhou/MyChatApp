@@ -2,14 +2,19 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const server = http.createServer(app);
-const router = express.Router();
+const cors = require('cors')
+const bodyParser = require('body-parser')
 
 const accountRouters = require('./routers/accountRouters');
 
 
+//Enable all CORS Requests
+app.use(cors())
 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
-//tell Express taht it should accept JSON
+//
 app.use(express.json());
 
 //use router

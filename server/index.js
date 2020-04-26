@@ -1,12 +1,15 @@
 const http = require('http');
 const express = require('express');
-const app = express();
-const server = http.createServer(app);
-const cors = require('cors')
-const bodyParser = require('body-parser')
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const socketIo = require('socket.io');
 
 const accountRouters = require('./routers/accountRouters');
 
+//Setting up exress and adding socketIo middleware
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 
 //Enable all CORS Requests
 app.use(cors())
@@ -36,6 +39,14 @@ mongoose.connect(mongo_uri, { useNewUrlParser: true }, function(err) {
     console.log(`Successfully connected to ${mongo_uri}`);
   }
 });
+
+//Setting up socket
+io.on("connection", socket => {
+  console.log("New client connected");
+
+  socket.on("disconnect", () => console.log("Client disconnected"));
+  
+})
 
 
 

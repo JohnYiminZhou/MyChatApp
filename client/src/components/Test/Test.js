@@ -1,17 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-const api = "http://localhost:5000/";
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 
 export default function Test() {
-    //const [userID, setUserID] = useState('')
+    const [name, setName] = useState('');
+    const [room, setRoom] = useState('');
 
     return (
         <div>
             <h1>Test chat</h1>
             <lable><b>Please enter your name</b></lable>
             <input
+
                 placeholder = "Your Nmae"
+                type = 'text'
+                onChange = { (event) => setName( event.target.value )}
             />
+
+            <lable><b>Please enter your Room</b></lable>
+            <input
+
+                placeholder = "Your Room"
+                type = 'text'
+                onChange = { (event) => setRoom( event.target.value )}
+            />
+            <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/chat?name=${name}&room=${room}`}>
+            <button className={'button mt-20'} type="submit">Sign In</button>
+            </Link>
         </div>
     )
 }

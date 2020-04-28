@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User.js');
 const getUserName = require('../middleware/userMiddleware');
+const getUser = require('../middleware/userMiddleware');
 
 //Creating one user
 router.post('/', (req, res) => {
@@ -42,9 +43,18 @@ router.get('/', async (req, res) => {
 
 })
 
-//Getting an user by its name
-router.get('/find', getUserName, (req, res) => {
-    res.json(result);
+//Query user name
+router.get('/find', async (req, res) => {
+    //console.log(req.query.name);
+    let query = req.query.name;
+    try {
+        const result = await User.find({userName: query});
+        res.json(result);
+
+    } catch(err){
+        res.status(500).json({message: err.message})
+    }
+
 })
 
 //Delete an user by its name
@@ -56,6 +66,14 @@ router.delete('/delete', getUserName, async (req, res) => {
     } catch(err) {
         res.status(500).json({ message: err.message})
     }
+})
+
+//Login
+router.get('/login', getUser, (req, res) => {
+    if(result.length == 0)
+        res.status(404).json({ message: 'User does not exist.'});
+    else
+        res.status(500).json({ message: 'Welcome back.'});
 })
 
 module.exports = router;

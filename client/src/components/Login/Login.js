@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './Login.css';
 
-const api = 'http://localhost:5000/';
+const api = 'http://localhost:5000/user/';
 
 export default function Login() {
     const [user, setUser] = useState('');

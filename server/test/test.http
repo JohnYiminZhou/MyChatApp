@@ -15,11 +15,11 @@ content-type: application/json
 }
 
 ###
-
+//Query all users
 GET http://localhost:5000/user/ HTTP/1.1
 
 ###
-//Query user name
+//Query a user name
 GET http://localhost:5000/user/find?name=sample HTTP/1.1t
 
 ###

@@ -58,10 +58,10 @@ router.get('/find', async (req, res) => {
 })
 
 //Delete an user by its name
-router.delete('/delete', getUserName, async (req, res) => {
+router.delete('/delete', async (req, res) => {
     try {
         //console.log(result[0])
-        await User.deleteOne( { userName: result[0].userName} );
+        await User.deleteOne( { userName: req.query.name} );
         res.json( { message: 'Delete.'})
     } catch(err) {
         res.status(500).json({ message: err.message})

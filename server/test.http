@@ -22,11 +22,10 @@ GET http://localhost:5000/user/ HTTP/1.1
 //Query user name
 GET http://localhost:5000/user/find?name=sample HTTP/1.1t
 
-//Problem return []
 ###
 
 DELETE http://localhost:5000/user/delete?name=sample HTTP/1.1t
-//Problem Cannot read property 'userName' of undefined
+
 ###
 
 PUT http://localhost:5000/user/update?name=sample HTTP/1.1t

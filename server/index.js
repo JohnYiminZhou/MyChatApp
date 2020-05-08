@@ -4,9 +4,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const socketIo = require('socket.io');
 
-const db = require('./db');
+
 const accountRouters = require('./routers/accountRouters');
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./actions/users');
+
+const db = require('./db');
 
 //Setting up exress and adding socketIo middleware
 const app = express();
@@ -19,7 +21,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-//
+//parse inc request with json
 app.use(express.json());
 
 //use router
@@ -31,6 +33,7 @@ app.use('/user', accountRouters);
 
 
 //Setting up socket
+
 io.on('connect', (socket) => {
   socket.on('join', ({ name, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room });
@@ -64,7 +67,5 @@ io.on('connect', (socket) => {
     }
   })
 });
-
-
 
 server.listen(process.env.PORT || 5000, () => console.log(`Server has started at http://localhost:5000/`));

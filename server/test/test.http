@@ -9,9 +9,9 @@ POST http://localhost:5000/user/ HTTP/1.1
 content-type: application/json
 
 {
-    "userName": "sample",
-    "email": "test@gmail.com",
-    "password": "123"
+    "userName": "Bob",
+    "email": "Bob@gmail.com",
+    "password": "12345"
 }
 
 ###

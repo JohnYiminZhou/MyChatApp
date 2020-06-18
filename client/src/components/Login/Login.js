@@ -1,31 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Card, Form, Input, Button } from './LoginForm.js';
 
-import './Login.css';
 
-const api = 'http://localhost:5000/user/';
 
 export default function Login() {
-    const [user, setUser] = useState('');
-    const [password, setPassword] = useState('');
 
     return (
-        <div className="LoginOuterContainer">
-            <h1>My Chat app</h1>
-            <div>
-                <h1>Login</h1>
-                <div>
-                    <label><b>Username</b></label>
-                    <input
-                        placeholder = "Username"
-                    />
-                </div>
-                <div>
-                    <label><b>Password</b></label>
-                    <input
-                        placeholder = "Password"
-                    />
-                </div>
-            </div>
-        </div>
-    );
+     <Card>
+      <Form>
+        <Input type="email" placeholder="email" />
+        <Input type="password" placeholder="password" />
+        <Button>Sign In</Button>
+      </Form>
+      <Link to="/Register">Don't have an account?</Link>
+    </Card>
+  );
 }

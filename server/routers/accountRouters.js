@@ -8,8 +8,61 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var config = require('../config/config');
 
+/*
+    Todo list:
+    CRUD
+*/
 
+//Create a user, then generate a token.
+router.post('/Create', (req, res) =>{
+    const {userName, password} = req.body;
+    const newUser = new User({
+        userName,
+        password: bcrypt.hashSync(password, 8)
+    })
 
+    try {
+        const saveUser = newUser.save();
+        const token = jwt.sign({ id: saveUser._id }, config.secret, {
+            expiresIn: 86400
+        });
+        res.status(200).json({ auth: true, token: token});
+    } catch(err) {
+        res.status(400).json({ message: err.message})
+    }
+
+})
+//Assume all users have unique name
+//Login a user and generate a token
+router.post('/Login', async (req, res) =>{
+    let user = await User.findOne({'userName': req.body.userName});
+    if(!user)
+        res.status(400).json({ message: "User Not Exist"});
+    
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch)
+        res.status(400).json({message: "Incorrect Password !"});
+    else{
+        const token = jwt.sign({ id: user._id}, config.secret, {
+        expiresIn: 86400
+        });
+        res.status(200).json({ message: "OK", auth: true, token: token});
+    }
+
+})
+
+//Getting all users
+router.get('/', async (req, res) => {
+    try {
+        const allUsers = await User.find()
+        res.json(allUsers)
+    } catch(err) {
+        res.status(500).json({ message: err.message})
+    }
+
+})
+
+/*
 //Creating a user
 router.post('/', (req, res) => {
     //console.log(req.body);
@@ -41,16 +94,7 @@ router.put('/update', async (req, res) => {
     
 })
 
-//Getting all users
-router.get('/', async (req, res) => {
-    try {
-        const allUsers = await User.find()
-        res.json(allUsers)
-    } catch(err) {
-        res.status(500).json({ message: err.message})
-    }
 
-})
 
 //Query user name
 router.get('/find', async (req, res) => {
@@ -95,5 +139,6 @@ router.get('/me', (req, res) => {
         res.status(200).send(decoded);
     })
 })
+*/
 
 module.exports = router;

@@ -1,16 +1,14 @@
 
 
-
 GET http://localhost:5000/ HTTP/1.1
 
 ###
 
-POST http://localhost:5000/user/ HTTP/1.1
+POST http://localhost:5000/user/Create/ HTTP/1.1t
 content-type: application/json
 
 {
-    "userName": "Bob",
-    "email": "Bob@gmail.com",
+    "userName": "New",
     "password": "12345"
 }
 
@@ -35,13 +33,13 @@ content-type: application/json
     "email": "new@gmail.com"
 }
 ###
-
-GET http://localhost:5000/user/login HTTP/1.1t
+//test login
+post http://localhost:5000/user/login HTTP/1.1t
 content-type: application/json
 
 {
-    "userName": "sample",
-    "password": "123"
+    "userName": "New",
+    "password": "12345"
 }
 
 ###

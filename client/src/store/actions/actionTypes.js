@@ -1,0 +1,1 @@
+export const PASS_USER_NAME = 'PASS_USER_NAME';
